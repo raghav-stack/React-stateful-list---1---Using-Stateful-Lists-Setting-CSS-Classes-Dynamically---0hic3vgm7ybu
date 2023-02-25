@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../styles/App.css';
 
@@ -27,13 +27,29 @@ const data = {
   ]
 }
 const App = () => {
+  const [selected, setSelected] = useState();
 
   return (
     <div id="main">
-      
+      <select onChange={(e) => setSelected(e.target.value)}>
+        <option value={null}></option>
+        {Object.keys(data).map((year, idx) => {
+          return (
+            <option key={idx} value={year}>
+              {year}
+            </option>
+          );
+        })}
+      </select>
+      <div id="selected-year">
+        {selected ? `Selected year-${selected}` : "No year selected"}
+      </div>
+      <ul>
+        {selected && data[selected].map((mov, idx) => <li key={idx}>{mov}</li>)}
+      </ul>
     </div>
-  )
-}
+  );
+};
 
 
 export default App;
